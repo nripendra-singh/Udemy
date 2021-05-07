@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/umd/popper.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container-fluid">
+        <h1>Currency Denomination</h1>
+        @{
+            List<int> Currency = new List<int>() { 1000, 500, 100, 50, 10, 5, 1 };
+            List<int> Notes = new List<int>();
+            int q;
+            if (ViewBag.amount > 0)
+            {
+                int a = ViewBag.amount;
+                for (int i = 0; i < 7; i++)
+                {
+                    q = Currency[i];
+                    Notes.Add(Convert.ToInt32(a / q));
+                    a = Convert.ToInt32(a % q);
+                }
+            }
+        }
+    </div>
+    <div class="row">
+        <div class="col-lg-6 mx-auto">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Denomination</th>
+                        <th>Count</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @for (int i = 0; i < Notes.Count; i++)
+                    {
+                        <tr>
+                            <td>@Currency[i]</td>
+                            <td>@Notes[i]</td>
+                            <td>@(Currency[i] * Notes[i])</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
